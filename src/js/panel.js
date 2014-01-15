@@ -1,9 +1,9 @@
 
-PlayoutTimelinePanel = function() {
+Panel = function() {
     this.init.apply(this, arguments);
 };
 
-PlayoutTimelinePanel.prototype = {
+Panel.prototype = {
     init: function(timeline, config) {
         var self = this;
 
@@ -97,7 +97,7 @@ PlayoutTimelinePanel.prototype = {
 
         // Calculate metrics depending on layout
         switch(self.timeline.layout) {
-            case PlayoutTimeline.HORIZONTAL:
+            case Timeline.HORIZONTAL:
                 self.height = Math.floor(self.config.span / self.config.total_span * self.timeline.height);
                 self.width = self.timeline.width - 0.5;
                 self.x = 0.5;
@@ -112,7 +112,7 @@ PlayoutTimelinePanel.prototype = {
                 self.rect_adjust = [0.5, 1, -0.5, -1];
                 self.axis_adjust = [self.padding[0] + 0.5, (self.height - self.padding[3])];
             break;
-            case PlayoutTimeline.VERTICAL:
+            case Timeline.VERTICAL:
                 self.height = self.timeline.height;
                 self.width = Math.floor(self.config.span / self.config.total_span * self.timeline.width);
                 self.x = Math.floor(self.config.actual_span / self.config.total_span * self.timeline.width) - 0.5;
@@ -183,10 +183,10 @@ PlayoutTimelinePanel.prototype = {
         // Adjust metrics to layout
         var hl_metrics;
         switch(self.timeline.layout) {
-            case PlayoutTimeline.HORIZONTAL:
+            case Timeline.HORIZONTAL:
                 hl_metrics = [Math.floor(self.drawing_width / 2 - hl_span / 2), 0, Math.floor(hl_span), self.height - self.padding[3]];
             break;
-            case PlayoutTimeline.VERTICAL:
+            case Timeline.VERTICAL:
                 hl_metrics = [0 + self.padding[0], Math.floor(self.drawing_width / 2 - hl_span / 2), self.width - self.padding[2], Math.floor(hl_span)];
             break;
         }
@@ -261,7 +261,7 @@ PlayoutTimelinePanel.prototype = {
 
         var shade_config;
         switch(self.timeline.layout) {
-            case PlayoutTimeline.HORIZONTAL:
+            case Timeline.HORIZONTAL:
                 shade_config = [
                     [
                         self.padding[0] + self.rect_adjust[0] + 0.5,
@@ -284,7 +284,7 @@ PlayoutTimelinePanel.prototype = {
                     ]
                 ];
             break;
-            case PlayoutTimeline.VERTICAL:
+            case Timeline.VERTICAL:
                 shade_config = [
                     [
                         self.padding[0] + self.rect_adjust[0] + 0.5,
@@ -560,12 +560,12 @@ PlayoutTimelinePanel.prototype = {
                 .attr("font-size", 26);
 
             switch(self.timeline.layout) {
-                case PlayoutTimeline.HORIZONTAL:
+                case Timeline.HORIZONTAL:
                     plist_text
                         .attr("y", function(d) { return $(this).height(); })
                         .attr("x", 5)
                 break;
-                case PlayoutTimeline.VERTICAL:
+                case Timeline.VERTICAL:
                     plist_text
                         .attr("y", function(d) { return $(this).height(); })
                         .attr("x", function(d) { return -($(this).width() + 5); })
@@ -577,12 +577,12 @@ PlayoutTimelinePanel.prototype = {
             var pos_attrs;
             var attr_trans;
             switch(self.timeline.layout) {
-                case PlayoutTimeline.HORIZONTAL:
+                case Timeline.HORIZONTAL:
                     pos_attrs  = {x: 0  , y: 0    , width: "100%" , height: "20%"};
                     attr_trans = {x: "x", y: "y"  , width: "width", height: "height"};
                     fs_attrs   = {x: 0  , y: "5%", width: "100%" , height: "20%", class: "FilmstripBG Horizontal",};
                 break;
-                case PlayoutTimeline.VERTICAL:
+                case Timeline.VERTICAL:
                     pos_attrs  = {x: 0    , y: 0  , width: "20%"   , height: "100%"};
                     attr_trans = {y: "x"  , x: "y", width: "height", height: "width"};
                     fs_attrs   = {x: "5%", y: 0  , width: "20%"   , height: "100%", class: "FilmstripBG Vertical",};
@@ -659,13 +659,13 @@ PlayoutTimelinePanel.prototype = {
                     .style("fill", "white");
 
             switch(self.timeline.layout) {
-                case PlayoutTimeline.HORIZONTAL:
+                case Timeline.HORIZONTAL:
                     clip_text
                         .attr("y", function(d) { return $(this).height(); })
                         .attr("x", function(d) { return -($(this).width() + 5); })
                         .attr("transform", "rotate(-90)")
                 break;
-                case PlayoutTimeline.VERTICAL:
+                case Timeline.VERTICAL:
                     clip_text
                         .attr("y", function(d) { return $(this).height(); })
                         .attr("x", 5);
@@ -717,14 +717,14 @@ PlayoutTimelinePanel.prototype = {
         // Update attributes (depending on smooth)
         var target = self.smoothify(selection, smooth);
         switch(self.timeline.layout) {
-            case PlayoutTimeline.HORIZONTAL:
+            case Timeline.HORIZONTAL:
                 target
                     .attr("y", 1.5)
                     .attr("height", self.drawing_height - 1.5)
                     .attr("x", function(d) { return (d.get("start") - self.start) / self.drawing_quota; })
                     .attr("width", function(d) { return (d.get("end") - d.get("start")) / self.drawing_quota; });
             break;
-            case PlayoutTimeline.VERTICAL:
+            case Timeline.VERTICAL:
                 target
                     .attr("x", 0)
                     .attr("width", self.drawing_height - 0.5)
@@ -754,13 +754,13 @@ PlayoutTimelinePanel.prototype = {
         // Position
         var x, y, width, height;
         switch(self.timeline.layout) {
-            case PlayoutTimeline.HORIZONTAL:
+            case Timeline.HORIZONTAL:
                 y = event.offsetX - self.svg.attr("x") - self.padding[0];
                 x = event.offsetY - self.svg.attr("y") - self.padding[1];
                 height = self.width - self.padding[2];
                 width = self.height - self.padding[3];
             break;
-            case PlayoutTimeline.VERTICAL:
+            case Timeline.VERTICAL:
                 x = event.offsetX - self.svg.attr("x") - self.padding[0];
                 y = event.offsetY - self.svg.attr("y") - self.padding[1];
                 width = self.width - self.padding[2];
@@ -803,7 +803,7 @@ PlayoutTimelinePanel.prototype = {
         }
 
         // Text rotation
-        if (self.timeline.layout == PlayoutTimeline.HORIZONTAL) {
+        if (self.timeline.layout == Timeline.HORIZONTAL) {
             txt_cont.attr("transform", "rotate(-90 50 50)");
         }
 
@@ -1013,10 +1013,10 @@ PlayoutTimelinePanel.prototype = {
         // Adjust metrics to layout
         var line_metrics;
         switch(this.timeline.layout) {
-            case PlayoutTimeline.HORIZONTAL:
+            case Timeline.HORIZONTAL:
                 line_metrics = [pos, pos, 0, this.height - this.padding[3]];
             break;
-            case PlayoutTimeline.VERTICAL:
+            case Timeline.VERTICAL:
                 line_metrics = [0, this.width - this.padding[2], pos, pos];
             break;
         }
@@ -1086,7 +1086,7 @@ PlayoutTimelinePanel.prototype = {
         // Metrics
         var metrics = {};
         switch(self.timeline.layout) {
-            case PlayoutTimeline.HORIZONTAL:
+            case Timeline.HORIZONTAL:
                 metrics["x"] = function(d) {
                     if (d.position == "bottom") {
                         return self.timeToPixels(self.end - d.span - self.start);
@@ -1105,7 +1105,7 @@ PlayoutTimelinePanel.prototype = {
                 };
                 metrics["height"] = self.drawing_height;
             break;
-            case PlayoutTimeline.VERTICAL:
+            case Timeline.VERTICAL:
                 metrics["y"] = function(d) {
                     if (d.position == "bottom") {
                         return self.timeToPixels(self.end - d.span - self.start);

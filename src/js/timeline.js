@@ -1,11 +1,11 @@
 
 var FILMSTRIP_PADDING = 15;
 
-function PlayoutTimeline(config) {
+function Timeline(config) {
     this.init.call(this, config);
 }
 
-PlayoutTimeline.prototype = {
+Timeline.prototype = {
     init: function(config) {
         var self = this;
         self.config = config;
@@ -60,7 +60,7 @@ PlayoutTimeline.prototype = {
             if (i < li - 1) {
                 config.panels[i].highlight = config.panels[i+1].axis.span;
             }
-            self.panels.push(new PlayoutTimelinePanel(this, config.panels[i]));
+            self.panels.push(new Panel(this, config.panels[i]));
             actual_span += config.panels[i].span;
         }
 
@@ -480,6 +480,6 @@ PlayoutTimeline.prototype = {
     },
 };
 
-PlayoutTimeline.HORIZONTAL = 0;
-PlayoutTimeline.VERTICAL = 1;
+Timeline.HORIZONTAL = 0;
+Timeline.VERTICAL = 1;
 
