@@ -1,3 +1,7 @@
+/*
+ *  Timeline - the overall timeline manager
+ */
+
 
 var FILMSTRIP_PADDING = 15;
 
