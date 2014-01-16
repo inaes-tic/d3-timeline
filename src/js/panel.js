@@ -473,7 +473,7 @@ Panel.prototype = {
 
         var rects = self.vis.selectAll("svg.Playlist");
 
-        var filtered_data = self.timeline.cache_filtered_data();
+        var filtered_data = self.timeline.data.cache_filtered_data();
 
         // Playlist data
         var updated_set = rects.data(filtered_data, self.timeline.comparator);
@@ -1060,7 +1060,7 @@ Panel.prototype = {
         var self = this;
 
         var wait_panel;
-        var bounds = this.timeline.fetched_bounds;
+        var bounds = this.timeline.data.fetched_bounds;
         if (bounds) {
             if (bounds.start > self.start) {
                 wait_panel = {
