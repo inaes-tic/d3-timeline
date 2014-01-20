@@ -913,7 +913,7 @@ Panel.prototype = {
 
     get_nearest_empty_space: function(time, duration, empty_spaces) {
         if (empty_spaces === undefined) {
-            empty_spaces = this.timeline.empty_spaces;
+            empty_spaces = this.timeline.data.empty_spaces;
         }
 
         var ret;
@@ -970,7 +970,7 @@ Panel.prototype = {
         var self = this;
 
         if (empty_spaces === undefined) {
-            empty_spaces = self.timeline.empty_spaces;
+            empty_spaces = self.timeline.data.empty_spaces;
         }
 
         times = self.time_scale.ticks(self.axis.ticks());
