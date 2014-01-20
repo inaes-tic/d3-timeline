@@ -2,8 +2,7 @@
  *  Panel - single panel managing code
  */
 
-
-Panel = function() {
+function Panel() {
     this.init.apply(this, arguments);
 };
 
