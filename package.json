@@ -1,6 +1,6 @@
 {
   "name": "d3-timeline",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "HTML5 timeline built using the d3 data visualization library",
   "main": "d3-timeline.js",
   "scripts": {
