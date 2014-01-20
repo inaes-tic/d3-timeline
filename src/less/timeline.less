@@ -1,0 +1,79 @@
+
+/* Playout */
+
+.D3Timeline {
+    svg {
+        .Axis {
+            pointer-events: none;
+            .major line {
+                opacity: 0.2;
+            }
+            path, line {
+                fill: none;
+                stroke: black;
+                shape-rendering: crispEdges;
+            }
+            text {
+                font-family: sans-serif;
+                font-size: 11px;
+            }
+        }
+        .Highlight {
+            fill: white;
+            opacity: 0.3;
+        }
+        rect {
+            &.Background {
+                fill: lightgray;
+            }
+            &.Border {
+                fill: transparent;
+                stroke: black;
+                stroke-width: 1px;
+            }
+        }
+        &.Playlist {
+            cursor: pointer;
+            text.Name {
+                stroke: none;
+                fill: #ffffff;
+                fill-opacity: 0.9;
+            }
+        }
+        &.DragShadow {
+        pointer-events: none;
+            rect {
+                fill-opacity: 0.4;
+            }
+        }
+    }
+
+
+    /* Filmstrip */
+
+    @Filmstrip_bg: rgba(0, 0, 0, 0.3);
+    @Filmstrip_hole: rgba(255, 255, 255, 0.3);
+    .FilmstripBG {
+        background-color: @Filmstrip_bg;
+        background-image: radial-gradient(@Filmstrip_hole 15%, transparent 16%),
+                          radial-gradient(@Filmstrip_hole 15%, transparent 16%);
+
+        &.Vertical {
+            background-size: 15px 10px;
+            background-repeat: repeat-y;
+            background-position: 0 0, 100% 0;
+            border-right: 1px solid;
+        }
+
+        &.Horizontal {
+            background-size: 10px 15px;
+            background-repeat: repeat-x;
+            background-position: 0 0, 0 100%;
+            border-bottom: 1px solid;
+        }
+    }
+
+    .Filmstrip {
+        opacity: 0.7;
+    }
+}

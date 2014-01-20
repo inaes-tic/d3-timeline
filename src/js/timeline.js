@@ -45,8 +45,7 @@ Timeline.prototype = {
             self.svg = self.container.append("svg:svg");
         }
         self.svg
-            .attr("id", "Timeline")
-            .attr("class", "Timeline")
+            .attr("class", "D3Timeline")
             .attr("height", self.height)
             .attr("width", self.width);
 
