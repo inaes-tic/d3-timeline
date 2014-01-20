@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Resizable D3Timeline</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../d3-timeline.css" />
+
+    <!-- Javascript -->
+    <script src="../d3-timeline.js"></script>
+
+    <!-- Libraries -->
+    <script src="../node_modules/d3/d3.min.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/underscore/underscore-min.js"></script>
+
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+    <!-- Local Style -->
+    <style type="text/css">
+        body {
+            background-color: #7f7f7f;
+            margin: 20px;
+        }
+        div#timeline {
+            margin-top: 20px;
+            width: 800px;
+            height: 600px;
+            position: relative;
+        }
+    </style>
+
+    <!-- Local Script -->
+    <script>
+        $(window).ready(function() {
+            var container = $("#timeline");
+
+            // D3Timeline
+            var timeline = new D3Timeline({
+                container: "#timeline",
+                unique_id: "_id",
+                width: container.width(),
+                height: container.height(),
+                layout: D3Timeline.VERTICAL,
+                shades: true,
+                panels: [{
+                    span: 1,
+                    axis: {
+                        span: moment.duration(24, "hours"),
+                    }
+                }, {
+                    span: 2,
+                    axis: {
+                        span: moment.duration(6, "hours"),
+                    }
+                }, {
+                    span: 6,
+                    axis: {
+                        span: moment.duration(90, "minutes"),
+                    },
+                    zoomable: true,
+                }],
+            });
+
+            timeline.data.update([], {
+                start: -Infinity,
+                end: Infinity,
+            });
+
+            // Make container resizable and report timeline on resize
+            container.resizable({
+                resize: function(event, ui) {
+                    timeline.resize(ui.size.width, ui.size.height);
+                },
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="timeline"></div>
+</body>
+</html>
