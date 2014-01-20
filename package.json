@@ -1,0 +1,37 @@
+{
+  "name": "d3-timeline",
+  "version": "0.0.0",
+  "description": "HTML5 timeline built using the d3 data visualization library",
+  "main": "d3-timeline.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/inaes-tic/d3-timeline",
+  "keywords": [
+    "d3",
+    "timeline",
+    "zoom",
+    "panel",
+    "animation",
+    "drag"
+  ],
+  "dependencies": {
+    "d3": "3.2.x",
+    "moment": "~2.5.0",
+    "underscore": "~1.5.2",
+    "jquery": "~2.1.0-rc1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.11",
+    "grunt-indent": "~0.1.4",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-uglify": "~0.3.0"
+  },
+  "author": "Patricio Reboratti",
+  "license": "AGPLv3",
+  "gitHead": "b49ba10d9ecd6660b5de0a8cb5afdf51ff899a76",
+  "readmeFilename": "README.md"
+}
