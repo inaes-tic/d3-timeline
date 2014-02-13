@@ -217,9 +217,9 @@ Panel.prototype = {
         self.svg.call(self.zoom_obj);
 
         if (self.config.zoomable) {
-            self.svg.on("mousewheel.zoom", _.bind(self.handleMouseWheel, self));
+            self.svg.on("wheel.zoom", _.bind(self.handleMouseWheel, self));
         } else {
-            self.svg.on("mousewheel.zoom", null);
+            self.svg.on("wheel.zoom", null);
         }
         self.svg.on("dblclick.zoom", null);
     },
@@ -227,11 +227,11 @@ Panel.prototype = {
     release_events: function() {
         this.svg
             .on("mousedown.zoom", null)
-            .on("mousewheel.zoom", null)
             .on("touchstart.zoom", null)
             .on("touchmove.zoom", null)
             .on("dblclick.zoom", null)
-            .on("touchend.zoom", null);
+            .on("touchend.zoom", null)
+            .on("wheel.zoom", null);
     },
 
     resize: function(smooth) {
