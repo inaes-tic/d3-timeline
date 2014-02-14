@@ -2,6 +2,9 @@
  *  Panel - single panel managing code
  */
 
+var AXIS_SIZE_VER = 65;
+var AXIS_SIZE_HOR = 35;
+
 function Panel() {
     this.init.apply(this, arguments);
 };
@@ -101,12 +104,18 @@ Panel.prototype = {
         // Calculate metrics depending on layout
         switch(self.timeline.layout) {
             case Timeline.HORIZONTAL:
-                self.height = Math.floor(self.config.span / self.config.total_span * self.timeline.height);
+                // Helpers
+                var total_panel_space = self.timeline.height - (self.timeline.config.panels.length * AXIS_SIZE_HOR);
+                var acum_axis_space = self.config.panel_ord * AXIS_SIZE_HOR;
+                var acum_panel_space = Math.floor(self.config.actual_span / self.config.total_span * total_panel_space);
+
+                // Metrics
+                self.height = Math.floor(self.config.span / self.config.total_span * total_panel_space) + AXIS_SIZE_HOR;
                 self.width = self.timeline.width - 0.5;
                 self.x = 0.5;
-                self.y = self.timeline.height - Math.floor(self.config.actual_span / self.config.total_span * self.timeline.height) - self.height + 0.5;
+                self.y = self.timeline.height - (acum_panel_space + acum_axis_space) - self.height + 0.5;
 
-                self.padding = [0, 0, 0, 35];
+                self.padding = [0, 0, 0, AXIS_SIZE_HOR];
                 self.orient = "bottom";
                 self.drawing_width = self.width - self.padding[2];
                 self.drawing_height = self.height - self.padding[3];
@@ -116,12 +125,18 @@ Panel.prototype = {
                 self.axis_adjust = [self.padding[0] + 0.5, (self.height - self.padding[3])];
             break;
             case Timeline.VERTICAL:
+                // Helpers
+                var total_panel_space = self.timeline.width - (self.timeline.config.panels.length * AXIS_SIZE_VER);
+                var acum_axis_space = self.config.panel_ord * AXIS_SIZE_VER;
+                var acum_panel_space = Math.floor(self.config.actual_span / self.config.total_span * total_panel_space);
+
+                // Metrics
                 self.height = self.timeline.height;
-                self.width = Math.floor(self.config.span / self.config.total_span * self.timeline.width);
-                self.x = Math.floor(self.config.actual_span / self.config.total_span * self.timeline.width) - 0.5;
+                self.width = Math.floor(self.config.span / self.config.total_span * total_panel_space) + AXIS_SIZE_VER;
+                self.x = acum_panel_space + acum_axis_space - 0.5;
                 self.y = -0.5;
 
-                self.padding = [65, 0, 65, 0];
+                self.padding = [AXIS_SIZE_VER, 0, AXIS_SIZE_VER, 0];
                 self.orient = "left";
                 self.drawing_width = self.height - self.padding[3];
                 self.drawing_height = self.width - self.padding[2];
